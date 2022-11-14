@@ -8,7 +8,7 @@ export const login = async (body) => {
   const data = await User.findOne({Email: body.Email});
 if(data !== null){
   const PasswordMatch= await bcrypt.compare(body.Password,data.Password);
-  console.log(PasswordMatch)
+  //console.log(PasswordMatch)
   if(PasswordMatch){
   let token = jwt.sign({ Email: data.Email, id:data._id}, process.env.SECRET_KEY);
   return token;

@@ -98,7 +98,9 @@ describe('User APIs Test', () => {
         .set('Authorization', `Bearer ${jwtToken}`)
         .send(note)
         .end((err, res) => {
+         
           NOTEID = res.body.data._id;
+
           expect(res.statusCode).to.be.equal(201);
 
           done();
