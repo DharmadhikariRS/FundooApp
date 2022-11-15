@@ -1,13 +1,17 @@
 import Notes from '../models/notes.model';
+import {client} from '../config/redis'
 
 //create a new note
 export const createNote = async (body) => {
+  await client.del('getAllData');
   const data = await Notes.create(body);
   return data;
 };
 
 //get all notes
 export const getAllNotes = async (body) => {
+const getNoteDetails=await Notes.find({userId:body.userId});
+await client.set('getAllData',JSON.stringify(getNoteDetails));
   const data = await Notes.find({userId:body.userId});
   return data;
 };
