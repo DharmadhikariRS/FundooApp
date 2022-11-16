@@ -2,7 +2,7 @@ import User from '../models/user.model';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { sendMail } from '../mailservice/user.reset.password';
-
+import { producer } from '../utils/rabbit.producer';
 //Login  users by Email
 export const login = async (body) => {
   const data = await User.findOne({Email: body.Email});
@@ -29,6 +29,7 @@ export const Register = async (body) => {
   const HashPassword=await bcrypt.hash(body.Password,12);
   body.Password=HashPassword;
   const data = await User.create(body);
+  producer("User successfully created");
   return data;
 };
 

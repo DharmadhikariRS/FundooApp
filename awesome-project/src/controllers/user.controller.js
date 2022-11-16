@@ -22,14 +22,18 @@ export const login = async (req, res, next) => {
 export const Register = async (req, res, next) => {
   try {
     const data = await UserService.Register(req.body);
+   
     res.status(HttpStatus.CREATED).json({
       code: HttpStatus.CREATED,
       data: data,
       message: 'User created successfully'
     });
+  
+   
   } catch (error) {
     next(error);
   }
+
 };
 
 export const forgotPasssword = async (req, res, next) => {
